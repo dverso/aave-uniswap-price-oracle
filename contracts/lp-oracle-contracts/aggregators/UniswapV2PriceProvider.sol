@@ -37,7 +37,7 @@ contract UniswapV2PriceProvider is IExtendedAggregator {
         IUniswapV2Pair _pair,
         bool[] memory _isPeggedToEth,
         uint8[] memory _decimals,
-        IPriceOracle _priceOracle,
+        address _priceOracle,
         uint256 _maxPriceDeviation
     ) public {
         require(_isPeggedToEth.length == 2, "ERR_INVALID_PEGGED_LENGTH");
@@ -58,7 +58,7 @@ contract UniswapV2PriceProvider is IExtendedAggregator {
         tokens.push(_pair.token1());
         isPeggedToEth = _isPeggedToEth;
         decimals = _decimals;
-        priceOracle = _priceOracle;
+        priceOracle = IPriceOracle(_priceOracle);
         maxPriceDeviation = _maxPriceDeviation;
     }
 
