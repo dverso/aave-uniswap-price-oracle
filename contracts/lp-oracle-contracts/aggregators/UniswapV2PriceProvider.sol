@@ -2,8 +2,8 @@
 pragma solidity >=0.6.12;
 pragma experimental ABIEncoderV2;
 
-import "../interfaces/IUniswapV2Pair.sol";
-import "../interfaces/IUniswapV2Factory.sol";
+import "@Uniswap/v2-core/contracts/interfaces/IUniswapV2Pair.sol";
+import "@Uniswap/v2-core/contracts/interfaces/IUniswapV2Factory.sol";
 import "../interfaces/IPriceOracle.sol";
 import "../interfaces/IExtendedAggregator.sol";
 import "../misc/SafeMath.sol";
