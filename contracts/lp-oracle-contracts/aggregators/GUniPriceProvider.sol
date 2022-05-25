@@ -58,6 +58,7 @@ pragma solidity =0.6.12;
 
 import {IExtendedAggregator} from "../interfaces/IExtendedAggregator.sol";
 import {IGUniPool} from "../interfaces/IGUniPool.sol";
+import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
 
 contract GUniPriceProvider is IExtendedAggregator {
     // solhint-disable private-vars-leading-underscore, var-name-mixedcase
@@ -73,18 +74,18 @@ contract GUniPriceProvider is IExtendedAggregator {
     address public immutable priceFeed1;
 
     constructor(address _pool, address _feed0, address _feed1) public {
-        uint256 dec0 = uint256(IExtendedAggregator(IGUniPool(_pool).token0()).decimals());
+        uint256 dec0 = uint256(ERC20(IGUniPool(_pool).token0()).decimals());
         require(dec0 <= 18, "token0-dec-gt-18");
         UNIT_0 = 10 ** dec0;
         TO_WAD_0 = 10 ** (18 - dec0);
-        uint256 dec1 = uint256(IExtendedAggregator(IGUniPool(_pool).token1()).decimals());
+        uint256 dec1 = uint256(ERC20(IGUniPool(_pool).token1()).decimals());
         require(dec1 <= 18, "token1-dec-gt-18");
         UNIT_1 = 10 ** dec1;
         TO_WAD_1 = 10 ** (18 - dec1);
-        uint256 decOracle0 = uint256(IExtendedAggregator(_feed0).decimals());
+        uint256 decOracle0 = uint256(ERC20(_feed0).decimals());
         require(decOracle0 <= 18, "oracle0-dec-gt-18");
         TO_WAD_ORACLE_0 = 10 ** (18 - decOracle0);
-        uint256 decOracle1 = uint256(IExtendedAggregator(_feed1).decimals());
+        uint256 decOracle1 = uint256(ERC20(_feed1).decimals());
         require(decOracle1 <= 18, "oracle1-dec-gt-18");
         TO_WAD_ORACLE_1 = 10 ** (18 - decOracle1);
         pool = _pool;
@@ -134,7 +135,7 @@ contract GUniPriceProvider is IExtendedAggregator {
         return IExtendedAggregator.TokenType.Complex;
     }
 
-    function decimals() external pure override returns (uint8) {
+    function decimals() external pure returns (uint8) {
         return 18;
     }
 

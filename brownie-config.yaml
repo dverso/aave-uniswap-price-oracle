@@ -1,0 +1,9 @@
+networks:
+  default: snapshot
+dependencies:
+  - OpenZeppelin/openzeppelin-contracts@3.3.0
+compiler:
+  solc:
+    remappings:
+      - "@openzeppelin=OpenZeppelin/openzeppelin-contracts@3.3.0"
+
